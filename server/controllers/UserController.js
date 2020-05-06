@@ -32,7 +32,8 @@ class UserController {
   static async logOut(req, res) {
     try {
       const user = req.body
-      await UserService.logOut(user, function(err, is_oper) {
+      console.log(req.decoded)
+      await UserService.logOut(req.token, user, function(err, is_oper) {
         if (err) {
           if (is_oper) {
             util.setError(400, err.message)
@@ -44,6 +45,7 @@ class UserController {
         }
       })
     } catch (error) {
+      console.log(error)
       util.setError(500, server_err);
     }
     return util.send(res)

@@ -1,7 +1,8 @@
 require('dotenv').config();
+const redis = require('redis')
 let jwt = require('jsonwebtoken');
 
-let checkToken = (req, res, next) => {
+function checkToken (req, res, next) {
   // console.log(next)
   let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
   if (token.startsWith('Bearer ')) {
@@ -10,17 +11,41 @@ let checkToken = (req, res, next) => {
   }
 
   if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, function (err, decoded) {
       if (err || req.body.username != decoded.username) {
         return res.json({
           success: false,
           message: 'Token is not valid'
         });
       } else {
-        // console.log("Middleware!")
-        // console.log(decoded)
-        req.decoded = decoded;
-        return next();
+        try {
+          checkCache(token, (err, val) => {
+            console.log()
+            if (err) {
+              return res.json({
+                status: 500,
+                message: 'Server error!'
+              });
+            } else if (val != null) {
+              return res.json({
+                status: 400,
+                message: 'Token is outdated!'
+              });
+            }
+            // console.log("Middleware!")
+            // console.log(decoded)
+            req.decoded = decoded;
+            req.token = token
+            return next();
+          })
+        } catch(error) {
+          console.log(error)
+          return res.json({
+            success: false,
+            message: 'Server error'
+          });
+        }
+
       }
     });
   } else {
@@ -30,6 +55,16 @@ let checkToken = (req, res, next) => {
     });
   }
 };
+
+function checkCache(token, callback) {
+  // check if token in redis cache
+  const port_redis = process.env.PORT || 6379;
+  const redis_client = redis.createClient(port_redis);
+  redis_client.get(token, (err, val) => {
+    console.log(val)
+    callback(err, val)
+  })
+}
 
 module.exports = {
   checkToken: checkToken

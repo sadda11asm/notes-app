@@ -5,6 +5,8 @@ import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 const redis = require('redis')
 
+const expiration_time = 86400
+
 
 class UserService {
     static async signUp(new_user, next) {
@@ -67,18 +69,30 @@ class UserService {
         }
     }
 
-    static async logOut(user, next) {
+    static async logOut(token, user, next) {
         try {
-            // const port_redis = process.env.PORT || 6379;
-            // const redis_client = redis.createClient(port_redis);
-            // const token = user.token
-            // console.log("logOut")
-            //add to blacklist of tokens
-
+            const port_redis = process.env.PORT || 6379;
+            const redis_client = redis.createClient(port_redis);
+            // add to blacklist of tokens
+            await redis_client.set(token, user.username);
+            await redis_client.expire(token, expiration_time)
+            // console.log(set)
+            next()
         } catch (error) {
+            console.log(error)
             next(error, false)
         }
     }
+
+    // static async clean_cache(username, redis_client) {
+    //     const end = Date.now()
+    //     var d = Date.parse(end)
+    //     const expiredTokens = await redis_client.zrangebyscore(`${username}-tokens`, `-inf`, d);
+
+    //     expiredTokens.length >= 1 && expiredTokens.forEach(async token => {
+    //         await redis.zrem(`${username}-tokens`, token)
+    //     });
+    // }
 
 //   static async getABook(id) {
 //     try {
