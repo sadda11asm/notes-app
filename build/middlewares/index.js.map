@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../server/middlewares/index.js"],"names":["checkToken"],"mappings":";;;;;;;;;AAAA;;eAEe;AACXA,EAAAA,UAAU,EAAVA;AADW,C","sourcesContent":["import checkToken from './isAuth'\n\nexport default {\n    checkToken\n}"],"file":"index.js"}

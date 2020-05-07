@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+    - "node_modules"
+install:
+  - npm install
+services:
+  - postgresql
+
+env:
+  global:
+  - NODE_ENV=test
+
+before_script:
+  - psql -c 'create database notes-test;' -U postgres
+  - psql -c "CREATE USER saddam WITH PASSWORD null;" -U postgres
+  - npm run build
+  - npm install -g sequelize-cli
+  - sequelize db:migrate
+  - sudo redis-server /etc/redis/redis.conf --port 6379
+script:
+  - npm test
+after_success:
+  - npm run coverage

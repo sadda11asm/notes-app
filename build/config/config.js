@@ -1,3 +1,5 @@
+"use strict";
+
 require('dotenv').config();
 
 module.exports = {
@@ -25,4 +27,5 @@ module.exports = {
     "dialect": "postgres",
     "operatorsAliases": false
   }
-}
+};
+//# sourceMappingURL=config.js.map
