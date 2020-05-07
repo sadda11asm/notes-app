@@ -58,12 +58,16 @@ function checkToken (req, res, next) {
 
 function checkCache(token, callback) {
   // check if token in redis cache
-  const port_redis = process.env.PORT || 6379;
-  const redis_client = redis.createClient(port_redis);
-  redis_client.get(token, (err, val) => {
-    console.log(val)
-    callback(err, val)
-  })
+  try {
+    const port_redis = process.env.PORT || 6379;
+    const redis_client = redis.createClient(port_redis);
+    redis_client.get(token, (err, val) => {
+      console.log(val)
+      callback(err, val)
+    })
+  } catch (error) {
+    callback(true)
+  }
 }
 
 module.exports = {

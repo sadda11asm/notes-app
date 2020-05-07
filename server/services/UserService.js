@@ -1,11 +1,11 @@
 import database from '../models';
 import { randomBytes } from 'crypto';
-require('dotenv').config()
+require('dotenv').config();
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
-const redis = require('redis')
+const redis = require('redis');
 
-const expiration_time = 86400
+const expiration_time = 86400;
 
 
 class UserService {

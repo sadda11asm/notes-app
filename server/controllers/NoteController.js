@@ -27,7 +27,49 @@ class NoteController {
     return util.send(res);
   }
 
+  static async getNote(req, res) {
+    try {
+      const note_id = req.decoded.note_id;
+      await NoteService.getNote(note_id, function (err, is_oper, db_note) {
+        if (err) {
+          if (is_oper) {
+            util.setError(400, err.message)
+          } else {
+            util.setError(500, server_err)
+          }
+        } else {
+          util.setSuccess(201, 'Note is succesfully fetched!', db_note);
+        }
+      });
+    } catch (error) {
+      console.log(error)
+      util.setError(500, server_err);
+    }
+    return util.send(res);
+  }
+
+  static async createLink(req, res) {
+    try {
+      await NoteService.createLink(req, function (err, is_oper, link) {
+        if (err) {
+          if (is_oper) {
+            util.setError(400, err.message)
+          } else {
+            util.setError(500, server_err)
+          }
+        } else {
+          util.setSuccess(201, 'Note is succesfully fetched!', link);
+        }
+      });
+    } catch (error) {
+      console.log(error)
+      util.setError(500, server_err);
+    }
+    return util.send(res);
+  }
+
   static async createNote(req, res) {
+    console.log(req)
     if (!req.body.title || !req.body.text) {
       util.setError(400, 'Please provide complete details');
       return util.send(res);
