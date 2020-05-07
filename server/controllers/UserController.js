@@ -33,7 +33,7 @@ class UserController {
     try {
       const user = req.body
       console.log(req.decoded)
-      await UserService.logOut(req.token, user, function(err, is_oper) {
+      await UserService.logOut(req.token, req.decoded.username, function(err, is_oper) {
         if (err) {
           if (is_oper) {
             util.setError(400, err.message)

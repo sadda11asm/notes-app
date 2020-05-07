@@ -69,12 +69,12 @@ class UserService {
         }
     }
 
-    static async logOut(token, user, next) {
+    static async logOut(token, username, next) {
         try {
             const port_redis = process.env.PORT || 6379;
             const redis_client = redis.createClient(port_redis);
             // add to blacklist of tokens
-            await redis_client.set(token, user.username);
+            await redis_client.set(token, username);
             await redis_client.expire(token, expiration_time)
             // console.log(set)
             next()

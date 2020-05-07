@@ -5,14 +5,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }, 
     text: {
-      type: DataTypes.STRING, 
+      type: DataTypes.TEXT, 
       allowNull: true
-    },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: false
-    },
-    updated_at: DataTypes.DATE,
+    }
+  }, {
+    timestamps:true
   });
   
   Note.associate = (models) => {

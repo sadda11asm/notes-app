@@ -17,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     }
 
-  }, {});
+  }, {
+    timestamps: false
+  });
   User.associate = function(models) {
     
     User.hasMany(models.Note, {

@@ -12,7 +12,7 @@ function checkToken (req, res, next) {
 
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, function (err, decoded) {
-      if (err || req.body.username != decoded.username) {
+      if (err) {
         return res.json({
           success: false,
           message: 'Token is not valid'

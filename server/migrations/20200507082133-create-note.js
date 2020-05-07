@@ -10,13 +10,18 @@ module.exports = {
       title: {
         type: Sequelize.STRING
       },
+      text: {
+        type: Sequelize.TEXT
+      },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        default: Sequelize.NOW
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        default: Sequelize.NOW
       },
       user_id: {
         type: Sequelize.INTEGER,
