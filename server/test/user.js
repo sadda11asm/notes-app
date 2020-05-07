@@ -27,5 +27,4 @@ describe('Testing the user endpoints:', () => {
         });
     });
   
-    
   });
