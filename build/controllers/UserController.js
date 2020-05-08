@@ -56,7 +56,7 @@ var UserController = /*#__PURE__*/function () {
                       util.setError(500, server_err);
                     }
                   } else {
-                    util.setSuccess(201, 'Successfully logged in!', db_user);
+                    util.setSuccess(200, 'Successfully logged in!', db_user);
                   }
                 });
 
@@ -90,15 +90,13 @@ var UserController = /*#__PURE__*/function () {
     key: "logOut",
     value: function () {
       var _logOut = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
-        var user;
         return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.prev = 0;
-                user = req.body;
                 console.log(req.decoded);
-                _context2.next = 5;
+                _context2.next = 4;
                 return _UserService["default"].logOut(req.token, req.decoded.username, function (err, is_oper) {
                   if (err) {
                     if (is_oper) {
@@ -107,29 +105,29 @@ var UserController = /*#__PURE__*/function () {
                       util.setError(500, server_err);
                     }
                   } else {
-                    util.setSuccess(201, "Successfully logged out!");
+                    util.setSuccess(200, "Successfully logged out!");
                   }
                 });
 
-              case 5:
-                _context2.next = 11;
+              case 4:
+                _context2.next = 10;
                 break;
 
-              case 7:
-                _context2.prev = 7;
+              case 6:
+                _context2.prev = 6;
                 _context2.t0 = _context2["catch"](0);
                 console.log(_context2.t0);
                 util.setError(500, server_err);
 
-              case 11:
+              case 10:
                 return _context2.abrupt("return", util.send(res));
 
-              case 12:
+              case 11:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 7]]);
+        }, _callee2, null, [[0, 6]]);
       }));
 
       function logOut(_x3, _x4) {

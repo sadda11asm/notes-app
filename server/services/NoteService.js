@@ -89,7 +89,7 @@ class NoteService {
                 process.env.JWT_SHARING_SECRET
             );
             console.log(sharing_token)
-            const link = `http://${host}${url}/${sharing_token}`
+            const link = `${url}/${sharing_token}`
             next(null, false, link)
         } catch (error) {
             console.log(error)

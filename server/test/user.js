@@ -19,7 +19,7 @@ before(function(done){
         .set('Accept', 'application/json')
         .send(user)
         .end((err, res) => {
-            expect(res.status).to.equal(201);
+            expect(res.statusCode).to.equal(201);
             expect(res.body.data).to.include({
                 user_id: 1,
                 username: user.username
@@ -41,7 +41,7 @@ describe('Testing the user endpoints:', () => {
             .set('Accept', 'application/json')
             .send(user)
             .end((err, res) => {
-                expect(res.status).to.equal(400);
+                expect(res.statusCode).to.equal(400);
                 done();
             });
     });
@@ -53,7 +53,7 @@ describe('Testing the user endpoints:', () => {
             .set('Authorization', `Bearer ${token}`)
             .send()
             .end((err, res) => {
-                expect(res.status).to.equal(200);
+                expect(res.statusCode).to.equal(200);
                 done();
             })
     });
@@ -65,7 +65,7 @@ describe('Testing the user endpoints:', () => {
             .set('Authorization', `Bearer ${token}`)
             .send()
             .end((err, res) => {
-                expect(res.status).to.equal(400);
+                expect(res.statusCode).to.equal(400);
                 done();
             })
     });
@@ -76,12 +76,10 @@ describe('Testing the user endpoints:', () => {
             .post('/api/user/login')
             .send(user)
             .end((err, res) => {
-                expect(res.status).to.equal(200);
+                expect(res.statusCode).to.equal(200);
                 expect(res.body.data).to.have.keys('token', 'username')
                 token = res.body.data.token;
                 done();
             })
     });
-    
-  
   });

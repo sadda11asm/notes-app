@@ -13,8 +13,8 @@ var _UserController = _interopRequireDefault(require("../controllers/UserControl
 
 var _isAuth = _interopRequireDefault(require("../middlewares/isAuth"));
 
-var router = (0, _express.Router)();
-router.get('/:id', _isAuth["default"].checkToken, _UserController["default"].getUser);
+var router = (0, _express.Router)(); // router.get('/:id', isAuth.checkToken,  UserController.getUser); TODO: implement later
+
 router.post('/signup', _UserController["default"].signUp);
 router.post('/logout', _isAuth["default"].checkToken, _UserController["default"].logOut);
 router.post('/login', _UserController["default"].logIn);

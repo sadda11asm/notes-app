@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon --exec babel-node  ./bin/www",
-    "test": "export NODE_ENV=test &&  sequelize db:migrate:undo:all  && sequelize db:migrate  && nyc --require @babel/register  mocha ./server/test/user.js --timeout 20000 --exit",
+    "test": "export NODE_ENV=test &&  sequelize db:migrate:undo:all  && sequelize db:migrate  && nyc --require @babel/register  mocha ./server/test/user.js --timeout 20000 --exit && nyc --require @babel/register  mocha ./server/test/note.js --timeout 20000 --exit",
     "build": "rm -rf ./build && babel -d ./build ./server -s",
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info",
     "coveralls-coverage": "coveralls < lcov.info",
@@ -19,6 +19,8 @@
     "argon2": "^0.26.2",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
+    "chai-like": "^1.1.1",
+    "chai-things": "^0.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",

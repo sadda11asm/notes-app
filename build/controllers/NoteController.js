@@ -47,7 +47,7 @@ var NoteController = /*#__PURE__*/function () {
                       util.setError(500, server_err);
                     }
                   } else {
-                    util.setSuccess(201, 'Notes are succesfully fetched!', db_user);
+                    util.setSuccess(200, 'Notes are succesfully fetched!', db_user);
                   }
                 });
 

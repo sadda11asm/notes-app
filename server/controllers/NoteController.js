@@ -17,7 +17,7 @@ class NoteController {
             util.setError(500, server_err)
           }
         } else {
-          util.setSuccess(201, 'Notes are succesfully fetched!', db_user);
+          util.setSuccess(200, 'Notes are succesfully fetched!', db_user);
         }
       });
     } catch (error) {
@@ -38,7 +38,7 @@ class NoteController {
             util.setError(500, server_err)
           }
         } else {
-          util.setSuccess(201, 'Note is succesfully fetched!', db_note);
+          util.setSuccess(200, 'Note is succesfully fetched!', db_note);
         }
       });
     } catch (error) {
@@ -58,7 +58,7 @@ class NoteController {
             util.setError(500, server_err)
           }
         } else {
-          util.setSuccess(201, 'Note is succesfully fetched!', link);
+          util.setSuccess(200, 'Note is succesfully fetched!', {link});
         }
       });
     } catch (error) {
@@ -69,7 +69,7 @@ class NoteController {
   }
 
   static async createNote(req, res) {
-    console.log(req)
+    // console.log(req)
     if (!req.body.title || !req.body.text) {
       util.setError(400, 'Please provide complete details');
       return util.send(res);

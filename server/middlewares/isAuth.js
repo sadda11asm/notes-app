@@ -4,17 +4,14 @@ let jwt = require('jsonwebtoken');
 
 function checkToken (req, res, next) {
   let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
-  if (token.startsWith('Bearer ')) {
-    // Remove Bearer from string
+
+  if (token && token.startsWith('Bearer ')) {
     token = token.slice(7, token.length);
-  }
-
-
-  if (token) {
     jwt.verify(token, process.env.JWT_SECRET, function (err, decoded) {
       if (err) {
-        console.log(err)
+        // console.log(err)
         return res.status(302).json({
+          status: 302,
           success: false,
           message: 'Token is not valid'
         });
@@ -24,11 +21,13 @@ function checkToken (req, res, next) {
             // console.log(val)
             if (err) {
               return res.status(500).json({
+                status: 500,
                 success: false,
                 message: 'Server error!'
               });
             } else if (val != null) {
               return res.status(400).json({
+                status: 400,
                 success: false,
                 message: 'Token is outdated!'
               });
@@ -40,6 +39,7 @@ function checkToken (req, res, next) {
         } catch(error) {
           console.log(error)
           return res.status(500).json({
+            status: 500,
             success: false,
             message: 'Server error'
           });
@@ -48,7 +48,9 @@ function checkToken (req, res, next) {
       }
     });
   } else {
+    console.log("ERRORRRR")
     return res.status(302).json({
+      status: 302,
       success: false,
       message: 'Auth token is not supplied'
     });

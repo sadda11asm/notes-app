@@ -3,7 +3,6 @@ const redis = require('redis')
 let jwt = require('jsonwebtoken');
 
 function checkToken (req, res, next) {
-  // console.log(next)
     const { unique_token } = req.params;
 
     jwt.verify(unique_token, process.env.JWT_SHARING_SECRET, function (err, decoded) {

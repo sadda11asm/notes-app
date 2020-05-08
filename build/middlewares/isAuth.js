@@ -7,7 +7,6 @@ var redis = require('redis');
 var jwt = require('jsonwebtoken');
 
 function checkToken(req, res, next) {
-  // console.log(next)
   var token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
 
   if (token.startsWith('Bearer ')) {
@@ -18,28 +17,26 @@ function checkToken(req, res, next) {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, function (err, decoded) {
       if (err) {
-        return res.json({
+        console.log(err);
+        return res.status(302).json({
           success: false,
           message: 'Token is not valid'
         });
       } else {
         try {
           checkCache(token, function (err, val) {
-            console.log();
-
+            // console.log(val)
             if (err) {
-              return res.json({
-                status: 500,
+              return res.status(500).json({
+                success: false,
                 message: 'Server error!'
               });
             } else if (val != null) {
-              return res.json({
-                status: 400,
+              return res.status(400).json({
+                success: false,
                 message: 'Token is outdated!'
               });
-            } // console.log("Middleware!")
-            // console.log(decoded)
-
+            }
 
             req.decoded = decoded;
             req.token = token;
@@ -47,7 +44,7 @@ function checkToken(req, res, next) {
           });
         } catch (error) {
           console.log(error);
-          return res.json({
+          return res.status(500).json({
             success: false,
             message: 'Server error'
           });
@@ -55,7 +52,7 @@ function checkToken(req, res, next) {
       }
     });
   } else {
-    return res.json({
+    return res.status(302).json({
       success: false,
       message: 'Auth token is not supplied'
     });
@@ -74,6 +71,7 @@ function checkCache(token, callback) {
       callback(err, val);
     });
   } catch (error) {
+    console.log(error);
     callback(true);
   }
 }
