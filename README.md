@@ -1,4 +1,4 @@
-# Notes-app
+# Notes-app     [![Build Status](https://travis-ci.com/sadda11asm/notes-app.svg?branch=master)](https://travis-ci.com/sadda11asm/notes-app)
 
 
 ## Project Structure
