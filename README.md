@@ -1,4 +1,4 @@
-# Notes-app     [![Build Status](https://travis-ci.com/sadda11asm/notes-app.svg?branch=master)](https://travis-ci.com/sadda11asm/notes-app)
+# Notes-app     [![Build Status](https://travis-ci.com/sadda11asm/notes-app.svg?branch=master)](https://travis-ci.com/sadda11asm/notes-app) [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/b8616af6323810e06bc6)
 
 
 ## Project Structure
@@ -30,12 +30,10 @@ npm install
 2. Create Database (PostgresQL):
 ``` 
 createdb notes_test
-
 ```
 3. Run 
 ```
 npm run test
-
 ```
 ### For a development
 
@@ -50,10 +48,8 @@ sequelize db:migrate
 4. Run Redis server for caching
 ```
 sudo redis-server /etc/redis/redis.conf --port 6379
-
 ```
 5. Run
 ```
 npm start:dev
-
 ```
