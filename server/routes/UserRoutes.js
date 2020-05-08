@@ -4,7 +4,7 @@ import isAuth from '../middlewares/isAuth'
 
 const router = Router();
 
-router.get('/:id', isAuth.checkToken,  UserController.getUser);
+// router.get('/:id', isAuth.checkToken,  UserController.getUser); TODO: implement later
 router.post('/signup', UserController.signUp);
 router.post('/logout', isAuth.checkToken, UserController.logOut);
 router.post('/login', UserController.logIn);

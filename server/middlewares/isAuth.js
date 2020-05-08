@@ -10,17 +10,20 @@ function checkToken (req, res, next) {
     token = token.slice(7, token.length);
   }
 
+
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, function (err, decoded) {
       if (err) {
+        console.log(err)
         return res.json({
           success: false,
+          status: 302,
           message: 'Token is not valid'
         });
       } else {
         try {
           checkCache(token, (err, val) => {
-            console.log()
+            // console.log()
             if (err) {
               return res.json({
                 status: 500,
@@ -42,6 +45,7 @@ function checkToken (req, res, next) {
           console.log(error)
           return res.json({
             success: false,
+            status: 500,
             message: 'Server error'
           });
         }
@@ -51,6 +55,7 @@ function checkToken (req, res, next) {
   } else {
     return res.json({
       success: false,
+      status: 302,
       message: 'Auth token is not supplied'
     });
   }
@@ -66,6 +71,7 @@ function checkCache(token, callback) {
       callback(err, val)
     })
   } catch (error) {
+    console.log(error)
     callback(true)
   }
 }

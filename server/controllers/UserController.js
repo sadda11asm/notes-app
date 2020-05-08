@@ -31,7 +31,6 @@ class UserController {
 
   static async logOut(req, res) {
     try {
-      const user = req.body
       console.log(req.decoded)
       await UserService.logOut(req.token, req.decoded.username, function(err, is_oper) {
         if (err) {
@@ -41,7 +40,7 @@ class UserController {
             util.setError(500, server_err)
           }
         } else {
-          util.setSuccess(201, "Successfully logged out!")
+          util.setSuccess(200, "Successfully logged out!")
         }
       })
     } catch (error) {
