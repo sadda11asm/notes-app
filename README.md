@@ -1,4 +1,4 @@
-# Notes-app     [![Build Status](https://travis-ci.com/sadda11asm/notes-app.svg?branch=master)](https://travis-ci.com/sadda11asm/notes-app) [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/b8616af6323810e06bc6)
+# REST-API for notes-taking app using Express   [![Build Status](https://travis-ci.com/sadda11asm/notes-app.svg?branch=master)](https://travis-ci.com/sadda11asm/notes-app) [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/b8616af6323810e06bc6)
 
 
 ## Project Structure
