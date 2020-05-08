@@ -3,7 +3,8 @@ import { randomBytes } from 'crypto';
 require('dotenv').config();
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
-const redis = require('redis');
+const Container = require("typedi").Container;
+
 
 const expiration_time = 86400;
 
@@ -71,8 +72,7 @@ class UserService {
 
     static async logOut(token, username, next) {
         try {
-            const port_redis = process.env.PORT || 6379;
-            const redis_client = redis.createClient(port_redis);
+            const redis_client = Container.get("redis").createClient();
             // add to blacklist of tokens
             await redis_client.set(token, username);
             await redis_client.expire(token, expiration_time)

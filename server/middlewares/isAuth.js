@@ -1,6 +1,8 @@
 require('dotenv').config();
-const redis = require('redis')
 let jwt = require('jsonwebtoken');
+var Container = require("typedi").Container;
+
+
 
 function checkToken (req, res, next) {
   let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
@@ -60,8 +62,7 @@ function checkToken (req, res, next) {
 function checkCache(token, callback) {
   // check if token in redis cache
   try {
-    const port_redis = process.env.PORT || 6379;
-    const redis_client = redis.createClient(port_redis);
+    const redis_client = Container.get("redis").createClient();
     redis_client.get(token, (err, val) => {
       console.log(val)
       callback(err, val)

@@ -1,8 +1,10 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const Container = require("typedi").Container;
 import userRoutes from './server/routes/UserRoutes';
 import noteRoutes from './server/routes/NoteRoutes';
+import RedisInstance from './server/utils/RedisClient'
 
 const app = express();
 
@@ -10,6 +12,8 @@ app.use(logger('dev'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+Container.set("redis", new RedisInstance())
 
 
 
